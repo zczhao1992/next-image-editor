@@ -11,6 +11,8 @@ import { ShapeSidebar } from "./shape-sidebar";
 import { ActiveTool, selectionDependentTools } from "../types";
 import { FillColorSidebar } from "./fill-color-sidebar";
 import { StrokeColorSidebar } from "./stroke-color-sidebar";
+import { StrokeWidthSidebar } from "./stroke-width-sidebar";
+import { OpacitySidebar } from "./opacity-sidebar";
 
 export const Editor = () => {
   // 侧边栏选择工具
@@ -88,6 +90,18 @@ export const Editor = () => {
           activeTool={activeTool}
           onChangeActiveTool={onChangeActiveTool}
         />
+        <StrokeWidthSidebar
+          editor={editor}
+          activeTool={activeTool}
+          onChangeActiveTool={onChangeActiveTool}
+        />
+
+        <OpacitySidebar
+          editor={editor}
+          activeTool={activeTool}
+          onChangeActiveTool={onChangeActiveTool}
+        />
+
         <main className="bg-muted flex-1 overflow-auto relative flex flex-col">
           <Toolbar
             editor={editor}

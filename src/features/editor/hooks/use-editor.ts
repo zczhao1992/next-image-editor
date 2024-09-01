@@ -14,6 +14,7 @@ import {
   STROKE_COLOR,
   STROKE_WIDTH,
   EditorHookProps,
+  STROKE_DASH_ARRAY,
 } from "../types";
 import { isTextType } from "../utils";
 
@@ -28,6 +29,8 @@ const buildEditor = ({
   fillColor,
   strokeWidth,
   strokeColor,
+  strokeDashArray,
+  setStrokeDashArray,
   setFillColor,
   setStrokeColor,
   setStrokeWidth,
@@ -56,6 +59,46 @@ const buildEditor = ({
   };
 
   return {
+    // 置于顶层
+    bringForward: () => {
+      canvas.getActiveObjects().forEach((object) => {
+        canvas.bringForward(object);
+      });
+
+      canvas.renderAll();
+
+      const workspace = getWorkspace();
+      workspace?.sendToBack();
+    },
+    // 置于底层
+    sendBackwards: () => {
+      canvas.getActiveObjects().forEach((object) => {
+        canvas.sendBackwards(object);
+      });
+
+      canvas.renderAll();
+      const workspace = getWorkspace();
+      workspace?.sendToBack();
+    },
+    // 修改透明度
+    changeOpacity: (value: number) => {
+      canvas.getActiveObjects().forEach((object) => {
+        object.set({ opacity: value });
+      });
+      canvas.renderAll();
+    },
+    // 获取透明度
+    getActiveOpacity: () => {
+      const selectedObject = selectedObjects[0];
+
+      if (!selectedObject) {
+        return 1;
+      }
+
+      const value = selectedObject.get("opacity") || 1;
+
+      return value;
+    },
     changeFillColor: (value: string) => {
       // console.log("ddddddddd", value);
       setFillColor(value);
@@ -90,6 +133,13 @@ const buildEditor = ({
 
       canvas.renderAll();
     },
+    changeStrokeDashArray: (value: number[]) => {
+      setStrokeDashArray(value);
+      canvas.getActiveObjects().forEach((object) => {
+        object.set({ strokeDashArray: value });
+      });
+      canvas.renderAll();
+    },
     // 添加圆形图形
     addCircle: () => {
       const object = new fabric.Circle({
@@ -97,6 +147,7 @@ const buildEditor = ({
         fill: fillColor,
         stroke: strokeColor,
         strokeWidth: strokeWidth,
+        strokeDashArray: strokeDashArray,
       });
 
       addToCanvas(object);
@@ -110,6 +161,7 @@ const buildEditor = ({
         fill: fillColor,
         stroke: strokeColor,
         strokeWidth: strokeWidth,
+        strokeDashArray: strokeDashArray,
       });
 
       addToCanvas(object);
@@ -121,6 +173,7 @@ const buildEditor = ({
         fill: fillColor,
         stroke: strokeColor,
         strokeWidth: strokeWidth,
+        strokeDashArray: strokeDashArray,
       });
 
       addToCanvas(object);
@@ -132,6 +185,7 @@ const buildEditor = ({
         fill: fillColor,
         stroke: strokeColor,
         strokeWidth: strokeWidth,
+        strokeDashArray: strokeDashArray,
       });
 
       addToCanvas(object);
@@ -152,6 +206,7 @@ const buildEditor = ({
           fill: fillColor,
           stroke: strokeColor,
           strokeWidth: strokeWidth,
+          strokeDashArray: strokeDashArray,
         }
       );
 
@@ -174,6 +229,7 @@ const buildEditor = ({
           fill: fillColor,
           stroke: strokeColor,
           strokeWidth: strokeWidth,
+          strokeDashArray: strokeDashArray,
         }
       );
       addToCanvas(object);
@@ -195,7 +251,28 @@ const buildEditor = ({
       }
       return (selectedObject.get("stroke") || strokeColor) as string;
     },
-    strokeWidth,
+    getActiveStrokeWidth: () => {
+      const selectedObject = selectedObjects[0];
+
+      if (!selectedObject) {
+        return strokeWidth;
+      }
+
+      const value = selectedObject.get("strokeWidth") || strokeWidth;
+
+      return value;
+    },
+    getActiveStrokeDashArray: () => {
+      const selectedObject = selectedObjects[0];
+
+      if (!selectedObject) {
+        return strokeDashArray;
+      }
+
+      const value = selectedObject.get("strokeDashArray") || strokeDashArray;
+
+      return value;
+    },
     selectedObjects,
   };
 };
@@ -209,10 +286,13 @@ export const useEditor = ({ clearSelectionCallback }: EditorHookProps) => {
 
   // 填充颜色
   const [fillColor, setFillColor] = useState(FILL_COLOR);
-  // 笔画颜色
+  // 边框颜色
   const [strokeColor, setStrokeColor] = useState(STROKE_COLOR);
-  // 笔画宽度
+  // 边框宽度
   const [strokeWidth, setStrokeWidth] = useState(STROKE_WIDTH);
+  // 边框类型
+  const [strokeDashArray, setStrokeDashArray] =
+    useState<number[]>(STROKE_DASH_ARRAY);
 
   // 处理画布位置偏移
   useAutoResize({ canvas, container });
@@ -228,6 +308,8 @@ export const useEditor = ({ clearSelectionCallback }: EditorHookProps) => {
         fillColor,
         strokeWidth,
         strokeColor,
+        strokeDashArray,
+        setStrokeDashArray,
         setFillColor,
         setStrokeColor,
         setStrokeWidth,
@@ -236,7 +318,14 @@ export const useEditor = ({ clearSelectionCallback }: EditorHookProps) => {
     }
 
     return undefined;
-  }, [canvas, fillColor, strokeWidth, strokeColor, selectedObjects]);
+  }, [
+    canvas,
+    fillColor,
+    strokeWidth,
+    strokeColor,
+    strokeDashArray,
+    selectedObjects,
+  ]);
 
   // 编辑器初始化
   const init = useCallback(
