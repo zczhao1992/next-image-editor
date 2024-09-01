@@ -2,15 +2,15 @@
 
 ### 介绍
 
-Next-Image-Editor，基于 Next.js、radix-ui、shadcn/ui、TailWind css 开源的一套图片编辑器。
+Next-Image-Editor，基于 Next.js、radix-ui、shadcn/ui、TailWind css 的一套开源图片编辑器。
 
 ### 一、在线预览地址
 
-- Link(可能需要翻墙)：https://next-dashboard-zc.vercel.app
+- Link(可能需要翻墙)：https://next-image-editor-zc.vercel.app/
 
 ### 二、Git 仓库地址 (欢迎 Star⭐)
 
-- GitHub：https://github.com/zczhao1992/next-dashboard
+- GitHub：https://github.com/zczhao1992/next-image-editor.git
 
 ### 三、🔨🔨🔨 项目功能
 
@@ -25,7 +25,7 @@ Next-Image-Editor，基于 Next.js、radix-ui、shadcn/ui、TailWind css 开源�
 
 ```text
 # GitHub
-git clone https://github.com/zczhao1992/next-dashboard.git
+git clone https://github.com/zczhao1992/next-image-editor.git
 ```
 
 - **Install：**

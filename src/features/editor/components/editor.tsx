@@ -7,12 +7,13 @@ import { Navbar } from "./navbar";
 import { Sidebar } from "./sidebar";
 import { Toolbar } from "./toolbar";
 import { Footer } from "./footer";
+import { ShapeSidebar } from "./shape-sidebar";
 import { ActiveTool } from "../types";
 
 export const Editor = () => {
   // 侧边栏选择工具
   const [activeTool, setActiveTool] = useState<ActiveTool>("select");
-
+  // 切换工具
   const onChangeActiveTool = useCallback(
     (tool: ActiveTool) => {
       if (tool === activeTool) {
@@ -32,7 +33,7 @@ export const Editor = () => {
     [activeTool]
   );
 
-  const { init } = useEditor();
+  const { init, editor } = useEditor();
 
   const canvasRef = useRef(null);
   const containereRef = useRef<HTMLDivElement>(null);
@@ -59,6 +60,11 @@ export const Editor = () => {
 
       <div className="absolute h-[calc(100%-68px)] w-full top-[68px] flex">
         <Sidebar
+          activeTool={activeTool}
+          onChangeActiveTool={onChangeActiveTool}
+        />
+        <ShapeSidebar
+          editor={editor}
           activeTool={activeTool}
           onChangeActiveTool={onChangeActiveTool}
         />
