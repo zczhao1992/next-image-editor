@@ -77,4 +77,6 @@ export const useAutoResize = ({ canvas, container }: UseAutoResizeProps) => {
       }
     };
   }, [canvas, container, autoZoom]);
+
+  return { autoZoom };
 };

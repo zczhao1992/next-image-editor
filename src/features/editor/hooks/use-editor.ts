@@ -1,6 +1,6 @@
 import { fabric } from "fabric";
 import { useCallback, useState, useMemo } from "react";
-
+import { useClipboard } from "./use-clipboard";
 import { useAutoResize } from "./use-auto-resize";
 import { useCanvasEvents } from "./use-canvas-events";
 import {
@@ -29,6 +29,9 @@ interface initialProps {
 
 // 编辑器实例方法
 const buildEditor = ({
+  autoZoom,
+  copy,
+  paste,
   canvas,
   fillColor,
   strokeWidth,
@@ -65,6 +68,26 @@ const buildEditor = ({
   };
 
   return {
+    getWorkspace,
+    autoZoom,
+    zoomIn: () => {
+      let zoomRatio = canvas.getZoom();
+      zoomRatio += 0.05;
+      const center = canvas.getCenter();
+      canvas.zoomToPoint(
+        new fabric.Point(center.left, center.top),
+        zoomRatio > 1 ? 1 : zoomRatio
+      );
+    },
+    zoomOut: () => {
+      let zoomRatio = canvas.getZoom();
+      zoomRatio -= 0.05;
+      const center = canvas.getCenter();
+      canvas.zoomToPoint(
+        new fabric.Point(center.left, center.top),
+        zoomRatio < 0.2 ? 0.2 : zoomRatio
+      );
+    },
     // 添加文本
     addText: (value, options) => {
       const object = new fabric.Textbox(value, {
@@ -148,7 +171,7 @@ const buildEditor = ({
 
         object.set({ stroke: value });
       });
-
+      canvas.freeDrawingBrush.color = value;
       canvas.renderAll();
     },
     changeStrokeWidth: (value: number) => {
@@ -157,7 +180,7 @@ const buildEditor = ({
       canvas.getActiveObjects().forEach((object) => {
         object.set({ strokeWidth: value });
       });
-
+      canvas.freeDrawingBrush.width = value;
       canvas.renderAll();
     },
     changeStrokeDashArray: (value: number[]) => {
@@ -478,6 +501,31 @@ const buildEditor = ({
         }
       });
     },
+    onCopy: () => copy(),
+    onPaste: () => paste(),
+    enableDrawingMode: () => {
+      canvas.discardActiveObject();
+      canvas.renderAll();
+      canvas.isDrawingMode = true;
+      canvas.freeDrawingBrush.width = strokeWidth;
+      canvas.freeDrawingBrush.color = strokeColor;
+    },
+    disableDrawingMode: () => {
+      canvas.isDrawingMode = false;
+    },
+    changeSize: (value: { width: number; height: number }) => {
+      const workspace = getWorkspace();
+
+      workspace?.set(value);
+      autoZoom();
+      // save();
+    },
+    changeBackground: (value: string) => {
+      const workspace = getWorkspace();
+      workspace?.set({ fill: value });
+      canvas.renderAll();
+      // save();
+    },
     selectedObjects,
   };
 };
@@ -503,15 +551,21 @@ export const useEditor = ({ clearSelectionCallback }: EditorHookProps) => {
   const [fontFamily, setFontFamily] = useState(FONT_FAMILY);
 
   // 处理画布位置偏移
-  useAutoResize({ canvas, container });
+  const { autoZoom } = useAutoResize({ canvas, container });
 
   // 处理画布事件
   useCanvasEvents({ canvas, setSelectedObjects, clearSelectionCallback });
+
+  // 粘贴板
+  const { copy, paste } = useClipboard({ canvas });
 
   // 编辑器实例方法
   const editor = useMemo(() => {
     if (canvas) {
       return buildEditor({
+        autoZoom,
+        copy,
+        paste,
         canvas,
         fillColor,
         strokeWidth,
@@ -536,6 +590,8 @@ export const useEditor = ({ clearSelectionCallback }: EditorHookProps) => {
     strokeDashArray,
     selectedObjects,
     fontFamily,
+    copy,
+    paste,
   ]);
 
   // 编辑器初始化

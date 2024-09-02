@@ -166,6 +166,9 @@ export type BuildEditorProps = {
   setStrokeWidth: (value: number) => void;
   fontFamily: string;
   setFontFamily: (value: string) => void;
+  copy: () => void;
+  paste: () => void;
+  autoZoom: () => void;
 };
 
 // 编辑器实例方法类型
@@ -209,6 +212,16 @@ export interface Editor {
   delete: () => void;
   addImage: (value: string) => void;
   changeImageFilter: (value: string) => void;
+  onCopy: () => void;
+  onPaste: () => void;
+  enableDrawingMode: () => void;
+  disableDrawingMode: () => void;
+  changeSize: (value: { width: number; height: number }) => void;
+  changeBackground: (value: string) => void;
+  getWorkspace: () => fabric.Object | undefined;
+  zoomIn: () => void;
+  zoomOut: () => void;
+  autoZoom: () => void;
 }
 
 export const colors = [
