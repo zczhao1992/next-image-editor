@@ -1,5 +1,64 @@
 import { fabric } from "fabric";
+import { ITextboxOptions } from "fabric/fabric-impl";
 import * as material from "material-colors";
+
+export const JSON_KEYS = [
+  "name",
+  "gradientAngle",
+  "selectable",
+  "hasControls",
+  "linkData",
+  "editable",
+  "extensionType",
+  "extension",
+];
+
+export const filters = [
+  "none",
+  "polaroid",
+  "sepia",
+  "kodachrome",
+  "contrast",
+  "brightness",
+  "greyscale",
+  "brownie",
+  "vintage",
+  "technicolor",
+  "pixelate",
+  "invert",
+  "blur",
+  "sharpen",
+  "emboss",
+  "removecolor",
+  "blacknwhite",
+  "vibrance",
+  "blendcolor",
+  "huerotate",
+  "resize",
+  "saturation",
+  "gamma",
+];
+
+export const fonts = [
+  "Arial",
+  "Arial Black",
+  "Verdana",
+  "Helvetica",
+  "Tahoma",
+  "Trebuchet MS",
+  "Times New Roman",
+  "Georgia",
+  "Garamond",
+  "Courier New",
+  "Brush Script MT",
+  "Palatino",
+  "Bookman",
+  "Comic Sans MS",
+  "Impact",
+  "Lucida Sans Unicode",
+  "Geneva",
+  "Lucida Console",
+];
 
 export const selectionDependentTools = [
   "fill",
@@ -105,10 +164,13 @@ export type BuildEditorProps = {
   setFillColor: (value: string) => void;
   setStrokeColor: (value: string) => void;
   setStrokeWidth: (value: number) => void;
+  fontFamily: string;
+  setFontFamily: (value: string) => void;
 };
 
 // 编辑器实例方法类型
 export interface Editor {
+  addText: (value: string, options?: ITextboxOptions) => void;
   addCircle: () => void;
   addSoftRectangle: () => void;
   addRectangle: () => void;
@@ -129,6 +191,22 @@ export interface Editor {
   getActiveStrokeColor: () => string;
   getActiveStrokeDashArray: () => number[];
   selectedObjects: fabric.Object[];
+  changeFontFamily: (value: string) => void;
+  getActiveFontFamily: () => string;
+  getActiveFontWeight: () => number;
+  changeFontWeight: (value: number) => void;
+  changeFontStyle: (value: string) => void;
+  getActiveFontStyle: () => string;
+  changeFontLinethrough: (value: boolean) => void;
+  getActiveFontLinethrough: () => boolean;
+  changeFontUnderline: (value: boolean) => void;
+  getActiveFontUnderline: () => boolean;
+  changeTextAlign: (value: string) => void;
+  getActiveTextAlign: () => string;
+
+  changeFontSize: (value: number) => void;
+  getActiveFontSize: () => number;
+  delete: () => void;
 }
 
 export const colors = [

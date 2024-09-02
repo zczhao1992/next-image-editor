@@ -13,6 +13,8 @@ import { FillColorSidebar } from "./fill-color-sidebar";
 import { StrokeColorSidebar } from "./stroke-color-sidebar";
 import { StrokeWidthSidebar } from "./stroke-width-sidebar";
 import { OpacitySidebar } from "./opacity-sidebar";
+import { TextSidebar } from "./text-sidebar";
+import { FontSidebar } from "./font-sidebar";
 
 export const Editor = () => {
   // 侧边栏选择工具
@@ -97,6 +99,18 @@ export const Editor = () => {
         />
 
         <OpacitySidebar
+          editor={editor}
+          activeTool={activeTool}
+          onChangeActiveTool={onChangeActiveTool}
+        />
+
+        <TextSidebar
+          editor={editor}
+          activeTool={activeTool}
+          onChangeActiveTool={onChangeActiveTool}
+        />
+
+        <FontSidebar
           editor={editor}
           activeTool={activeTool}
           onChangeActiveTool={onChangeActiveTool}
