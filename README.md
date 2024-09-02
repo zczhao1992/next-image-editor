@@ -14,7 +14,7 @@ Next-Image-Editor，基于 Next.js、radix-ui、shadcn/ui、TailWind css 的一�
 
 ### 三、🔨🔨🔨 项目功能
 
-- 🚀 采用最新技术找开发：Next14、TypeScript
+- 🚀 采用最新技术找开发：Next14、TypeScript、shadcn/ui、fabric.js、Hono.js
 - 🚀 基于 fabric.js 作为图片编辑的核心库
 - 🚀 整个项目集成了 TypeScript
 - 🚀 使用 zustand 做状态管理 一个巨好用的状态管理

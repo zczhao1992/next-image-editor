@@ -15,6 +15,7 @@ import { StrokeWidthSidebar } from "./stroke-width-sidebar";
 import { OpacitySidebar } from "./opacity-sidebar";
 import { TextSidebar } from "./text-sidebar";
 import { FontSidebar } from "./font-sidebar";
+import { ImageSidebar } from "./image-sidebar";
 
 export const Editor = () => {
   // 侧边栏选择工具
@@ -111,6 +112,12 @@ export const Editor = () => {
         />
 
         <FontSidebar
+          editor={editor}
+          activeTool={activeTool}
+          onChangeActiveTool={onChangeActiveTool}
+        />
+
+        <ImageSidebar
           editor={editor}
           activeTool={activeTool}
           onChangeActiveTool={onChangeActiveTool}
