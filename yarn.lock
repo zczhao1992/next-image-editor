@@ -7,6 +7,13 @@
   resolved "https://registry.npmmirror.com/@alloc/quick-lru/-/quick-lru-5.2.0.tgz"
   integrity sha512-UrcABB+4bUrFABwbluTIBErXwvbsU/V7TZWfmbgJfbkwiBuziS9gxdODUyuiecfdGQ85jglMW6juS3+z5TsKLw==
 
+"@effect/schema@0.68.12":
+  version "0.68.12"
+  resolved "https://registry.npmmirror.com/@effect/schema/-/schema-0.68.12.tgz#e530485e049a04eb0ce8698ea3294d2feac1afbb"
+  integrity sha512-UWJsFXzeYTBQYnftwI1KR2uaxIZ8fk+kffDS7BnJwnGjPPgODq3/AzeoBDSu1MAlnwBKOz+QRdMuSMxrT/pHig==
+  dependencies:
+    fast-check "^3.19.0"
+
 "@esbuild-kit/core-utils@^3.3.2":
   version "3.3.2"
   resolved "https://registry.npmmirror.com/@esbuild-kit/core-utils/-/core-utils-3.3.2.tgz"
@@ -907,6 +914,37 @@
   resolved "https://registry.npmmirror.com/@ungap/structured-clone/-/structured-clone-1.2.0.tgz"
   integrity sha512-zuVdFrMJiuCDQUMCzQaD6KL28MjnqqN8XnAqiEq9PNm/hCPTSGfrXCOfwj1ow4LFb/tNymJPwsNbVePc1xFqrQ==
 
+"@uploadthing/dropzone@0.4.1":
+  version "0.4.1"
+  resolved "https://registry.npmmirror.com/@uploadthing/dropzone/-/dropzone-0.4.1.tgz#826a33a89e665e5055c60934462ef39c0ab171e7"
+  integrity sha512-RHSpo/2kg/mrRSYQA4EKlyvkOCYWOeE2+QQYW9YiUvWCuawnTfD7DQvk8RN/nYXi1Sw7/v0NegmQpiVELVGtnA==
+  dependencies:
+    file-selector "^0.6.0"
+
+"@uploadthing/mime-types@0.2.10":
+  version "0.2.10"
+  resolved "https://registry.npmmirror.com/@uploadthing/mime-types/-/mime-types-0.2.10.tgz#169edb30f1aa52f828e37acfe5121432493efe01"
+  integrity sha512-kz3F0oEgAyts25NAGXlUBCWh3mXonbSOQJFGFMawHuIgbUbnzXbe4w5WI+0XdneCbjNmikfWrdWrs8m/7HATfQ==
+
+"@uploadthing/react@^6.7.2":
+  version "6.7.2"
+  resolved "https://registry.npmmirror.com/@uploadthing/react/-/react-6.7.2.tgz#8cd7b1c1bfdc09e2d615058fb9450bf6918ded82"
+  integrity sha512-9Mdslj1S24qbISA/LE3In5OFQ/U7OxdMbBlTPkJxKPkh+UW7BqZS0XuRTfkZYPkdBGDoXw5aH7VG3D/vGgpmxg==
+  dependencies:
+    "@uploadthing/dropzone" "0.4.1"
+    "@uploadthing/shared" "6.7.8"
+    file-selector "^0.6.0"
+    tailwind-merge "^2.2.1"
+
+"@uploadthing/shared@6.7.8":
+  version "6.7.8"
+  resolved "https://registry.npmmirror.com/@uploadthing/shared/-/shared-6.7.8.tgz#67bcb5d708b65c2aeba5d384532f27596bb8c52b"
+  integrity sha512-dLNa9GpdeiCHc/Nd0+BfaJ3wXvWIztBAaWIsNNPoaKiU3qhHoQd+5jDVx4oYKYVANqnv9s2CJW7di8Th5xy7Cw==
+  dependencies:
+    "@uploadthing/mime-types" "0.2.10"
+    effect "3.4.5"
+    std-env "^3.7.0"
+
 acorn-jsx@^5.3.2:
   version "5.3.2"
   resolved "https://registry.npmmirror.com/acorn-jsx/-/acorn-jsx-5.3.2.tgz"
@@ -1286,6 +1324,11 @@ concat-map@0.0.1:
   resolved "https://registry.npmmirror.com/concat-map/-/concat-map-0.0.1.tgz"
   integrity sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==
 
+consola@^3.2.3:
+  version "3.2.3"
+  resolved "https://registry.npmmirror.com/consola/-/consola-3.2.3.tgz#0741857aa88cfa0d6fd53f1cff0375136e98502f"
+  integrity sha512-I5qxpzLv+sJhTVEoLYNcTW+bThDCPsit0vLNKShZx6rLtpilNpmmeTPaeqJb9ZE9dV3DGaeby6Vuhrw38WjeyQ==
+
 copy-anything@^3.0.2:
   version "3.0.5"
   resolved "https://registry.npmmirror.com/copy-anything/-/copy-anything-3.0.5.tgz"
@@ -1515,6 +1558,11 @@ eastasianwidth@^0.2.0:
   version "0.2.0"
   resolved "https://registry.npmmirror.com/eastasianwidth/-/eastasianwidth-0.2.0.tgz"
   integrity sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==
+
+effect@3.4.5:
+  version "3.4.5"
+  resolved "https://registry.npmmirror.com/effect/-/effect-3.4.5.tgz#f1e2624271a082a7c99d42414c542af5879f011f"
+  integrity sha512-aTonOH68tUttSdYwMkiuky3hjgn3pu7yInNaE8rU2EDKQ8zr9Me78WcvWBQKe4u1gvbBH77y9dAKqn98lNIfNQ==
 
 emoji-regex@^8.0.0:
   version "8.0.0"
@@ -2020,6 +2068,13 @@ fabric@5.3.0-browser:
   resolved "https://registry.npmmirror.com/fabric/-/fabric-5.3.0-browser.tgz"
   integrity sha512-q8zJccGVX9SR+l223G1BG842/S6P6QdPeOfDClppG9uw2knkNMKwkpcrAWe186aLUZonu43V+jURhtSuix4OIQ==
 
+fast-check@^3.19.0:
+  version "3.22.0"
+  resolved "https://registry.npmmirror.com/fast-check/-/fast-check-3.22.0.tgz#1a8153e9d6fbdcc60b818f447cbb9cac1fdd8fb6"
+  integrity sha512-8HKz3qXqnHYp/VCNn2qfjHdAdcI8zcSqOyX64GOMukp7SL2bfzfeDKjSd+UyECtejccaZv3LcvZTm9YDD22iCQ==
+  dependencies:
+    pure-rand "^6.1.0"
+
 fast-deep-equal@^3.1.1, fast-deep-equal@^3.1.3:
   version "3.1.3"
   resolved "https://registry.npmmirror.com/fast-deep-equal/-/fast-deep-equal-3.1.3.tgz"
@@ -2059,6 +2114,13 @@ file-entry-cache@^6.0.1:
   integrity sha512-7Gps/XWymbLk2QLYK4NzpMOrYjMhdIxXuIvy2QBsLE6ljuodKvdkWs/cpyJJ3CVIVpH0Oi1Hvg1ovbMzLdFBBg==
   dependencies:
     flat-cache "^3.0.4"
+
+file-selector@^0.6.0:
+  version "0.6.0"
+  resolved "https://registry.npmmirror.com/file-selector/-/file-selector-0.6.0.tgz#fa0a8d9007b829504db4d07dd4de0310b65287dc"
+  integrity sha512-QlZ5yJC0VxHxQQsQhXvBaC7VRJ2uaxTf+Tfpu4Z/OcVQJVpZO+DGU0rkoVW5ce2SccxugvpBJoMvUs59iILYdw==
+  dependencies:
+    tslib "^2.4.0"
 
 fill-range@^7.1.1:
   version "7.1.1"
@@ -3245,6 +3307,11 @@ punycode@^2.1.0, punycode@^2.1.1, punycode@^2.3.1:
   resolved "https://registry.npmmirror.com/punycode/-/punycode-2.3.1.tgz"
   integrity sha512-vYt7UD1U9Wg6138shLtLOvdAu+8DsC/ilFtEVHcH+wydcSpNE20AfSOduf6MkRFahL5FY7X1oU7nKVZFtfq8Fg==
 
+pure-rand@^6.1.0:
+  version "6.1.0"
+  resolved "https://registry.npmmirror.com/pure-rand/-/pure-rand-6.1.0.tgz#d173cf23258231976ccbdb05247c9787957604f2"
+  integrity sha512-bVWawvoZoBYpp6yIoQtQXHZjmz35RSVHnUOTefl8Vcjr8snTPY1wnpSPMWekcFwbxI6gtmT7rSYPFvz71ldiOA==
+
 querystringify@^2.1.1:
   version "2.2.0"
   resolved "https://registry.npmmirror.com/querystringify/-/querystringify-2.2.0.tgz#3345941b4153cb9d082d8eee4cda2016a9aef7f6"
@@ -3552,6 +3619,11 @@ source-map@^0.6.0:
   resolved "https://registry.npmmirror.com/source-map/-/source-map-0.6.1.tgz"
   integrity sha512-UjgapumWlbMhkBgzT7Ykc5YXUT46F0iKu8SGXq0bcwP5dz/h0Plj6enJqjz1Zbq2l5WaqYnrVbwWOWMyF3F47g==
 
+std-env@^3.7.0:
+  version "3.7.0"
+  resolved "https://registry.npmmirror.com/std-env/-/std-env-3.7.0.tgz#c9f7386ced6ecf13360b6c6c55b8aaa4ef7481d2"
+  integrity sha512-JPbdCEQLj1w5GilpiHAx3qJvFndqybBysA3qUOnznweH4QbNYUsW/ea8QzSrnh0vNsezMMw5bcVool8lM0gwzg==
+
 stop-iteration-iterator@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npmmirror.com/stop-iteration-iterator/-/stop-iteration-iterator-1.0.0.tgz"
@@ -3713,7 +3785,7 @@ symbol-tree@^3.2.4:
   resolved "https://registry.npmmirror.com/symbol-tree/-/symbol-tree-3.2.4.tgz#430637d248ba77e078883951fb9aa0eed7c63fa2"
   integrity sha512-9QNk5KwDF+Bvz+PyObkmSYjI5ksVUYtjW7AU22r2NKcfLJcXp96hkDWU3+XndOsUb+AQ9QhfzfCT2O+CNWT5Tw==
 
-tailwind-merge@^2.5.2:
+tailwind-merge@^2.2.1, tailwind-merge@^2.5.2:
   version "2.5.2"
   resolved "https://registry.npmmirror.com/tailwind-merge/-/tailwind-merge-2.5.2.tgz"
   integrity sha512-kjEBm+pvD+6eAwzJL2Bi+02/9LFLal1Gs61+QB7HvTfQQ0aXwC5LGT8PEt1gS0CWKktKe6ysPTAy3cBC5MeiIg==
@@ -3927,6 +3999,18 @@ unsplash-js@^7.0.19:
   version "7.0.19"
   resolved "https://registry.npmmirror.com/unsplash-js/-/unsplash-js-7.0.19.tgz#36a4ee6d52f2438a5526c08c7018908debba10c7"
   integrity sha512-j6qT2floy5Q2g2d939FJpwey1yw/GpQecFiSouyJtsHQPj3oqmqq3K4rI+GF8vU1zwGCT7ZwIGQd2dtCQLjYJw==
+
+uploadthing@^6.13.2:
+  version "6.13.2"
+  resolved "https://registry.npmmirror.com/uploadthing/-/uploadthing-6.13.2.tgz#82e6c36aaa22905ffdcb1ea341c1f509615d7d06"
+  integrity sha512-hrxwOgqKs8siczPloop72drRBiUYaFDHMp45OR/sSAaAbOPyGBmBL88Bi4UWCvgC+aBWCLRxtMEGeoqrfu+OMg==
+  dependencies:
+    "@effect/schema" "0.68.12"
+    "@uploadthing/mime-types" "0.2.10"
+    "@uploadthing/shared" "6.7.8"
+    consola "^3.2.3"
+    effect "3.4.5"
+    std-env "^3.7.0"
 
 uri-js@^4.2.2:
   version "4.4.1"

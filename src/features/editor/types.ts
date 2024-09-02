@@ -208,6 +208,7 @@ export interface Editor {
   getActiveFontSize: () => number;
   delete: () => void;
   addImage: (value: string) => void;
+  changeImageFilter: (value: string) => void;
 }
 
 export const colors = [

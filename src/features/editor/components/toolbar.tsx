@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { FaBold, FaItalic, FaStrikethrough, FaUnderline } from "react-icons/fa";
 import { BsBorderWidth } from "react-icons/bs";
+import { TbColorFilter } from "react-icons/tb";
 import {
   ArrowUp,
   ArrowDown,
@@ -330,6 +331,35 @@ export const Toolbar = ({
             value={properties.fontSize}
             onChange={onChangeFontSize}
           />
+        </div>
+      )}
+
+      {isImage && (
+        <div className="flex items-center h-full justify-center">
+          <Hint label="滤镜" side="bottom" sideOffset={5}>
+            <Button
+              onClick={() => onChangeActiveTool("filter")}
+              size="icon"
+              variant="ghost"
+              className={cn(activeTool === "filter" && "bg-gray-100")}
+            >
+              <TbColorFilter className="size-4" />
+            </Button>
+          </Hint>
+        </div>
+      )}
+      {isImage && (
+        <div className="flex items-center h-full justify-center">
+          <Hint label="移除背景" side="bottom" sideOffset={5}>
+            <Button
+              onClick={() => onChangeActiveTool("remove-bg")}
+              size="icon"
+              variant="ghost"
+              className={cn(activeTool === "remove-bg" && "bg-gray-100")}
+            >
+              <SquareSplitHorizontal className="size-4" />
+            </Button>
+          </Hint>
         </div>
       )}
 
