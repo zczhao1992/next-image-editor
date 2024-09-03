@@ -24,6 +24,7 @@ import {
 } from "lucide-react";
 import { CiFileOn } from "react-icons/ci";
 import { BsCloudCheck, BsCloudSlash } from "react-icons/bs";
+import { UserButton } from "@/features/auth/components/user-button";
 import { Editor, ActiveTool } from "../types";
 import { cn } from "@/lib/utils";
 
@@ -201,6 +202,7 @@ export const Navbar = ({
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
+          <UserButton />
         </div>
       </div>
     </nav>
