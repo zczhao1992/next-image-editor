@@ -169,6 +169,11 @@ export type BuildEditorProps = {
   copy: () => void;
   paste: () => void;
   autoZoom: () => void;
+  save: (skip?: boolean) => void;
+  canRedo: () => boolean;
+  canUndo: () => boolean;
+  undo: () => void;
+  redo: () => void;
 };
 
 // 编辑器实例方法类型
@@ -222,6 +227,15 @@ export interface Editor {
   zoomIn: () => void;
   zoomOut: () => void;
   autoZoom: () => void;
+  canRedo: () => boolean;
+  canUndo: () => boolean;
+  onUndo: () => void;
+  onRedo: () => void;
+  savePng: () => void;
+  saveJpg: () => void;
+  saveSvg: () => void;
+  saveJson: () => void;
+  loadJson: (json: string) => void;
 }
 
 export const colors = [

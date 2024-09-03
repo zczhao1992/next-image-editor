@@ -19,8 +19,17 @@ import {
   FONT_FAMILY,
   FONT_WEIGHT,
   FONT_SIZE,
+  JSON_KEYS,
 } from "../types";
-import { isTextType, createFilter } from "../utils";
+import {
+  isTextType,
+  createFilter,
+  downloadFile,
+  transformText,
+} from "../utils";
+import { useHistory } from "./use-history";
+import { useHotkeys } from "./use-hotkeys";
+import { useWindowEvents } from "./use-window-events";
 
 interface initialProps {
   initialCanvas: fabric.Canvas;
@@ -29,6 +38,11 @@ interface initialProps {
 
 // 编辑器实例方法
 const buildEditor = ({
+  save,
+  undo,
+  redo,
+  canRedo,
+  canUndo,
   autoZoom,
   copy,
   paste,
@@ -49,6 +63,70 @@ const buildEditor = ({
   const getWorkspace = () => {
     return canvas.getObjects().find((object) => object.name === "clip");
   };
+
+  // 全局保存
+  const generateSaveOptions = () => {
+    const { width, height, left, top } = getWorkspace() as fabric.Rect;
+
+    return {
+      name: "Image",
+      format: "png",
+      quality: 1,
+      width,
+      height,
+      left,
+      top,
+    };
+  };
+
+  const savePng = () => {
+    const options = generateSaveOptions();
+
+    canvas.setViewportTransform([1, 0, 0, 1, 0, 0]);
+    const dataUrl = canvas.toDataURL(options);
+
+    downloadFile(dataUrl, "png");
+    autoZoom();
+  };
+
+  const saveSvg = () => {
+    const options = generateSaveOptions();
+
+    canvas.setViewportTransform([1, 0, 0, 1, 0, 0]);
+    const dataUrl = canvas.toDataURL(options);
+
+    downloadFile(dataUrl, "svg");
+    autoZoom();
+  };
+
+  const saveJpg = () => {
+    const options = generateSaveOptions();
+
+    canvas.setViewportTransform([1, 0, 0, 1, 0, 0]);
+    const dataUrl = canvas.toDataURL(options);
+
+    downloadFile(dataUrl, "jpg");
+    autoZoom();
+  };
+
+  const saveJson = async () => {
+    const dataUrl = canvas.toJSON(JSON_KEYS);
+
+    await transformText(dataUrl.objects);
+    const fileString = `data:text/json;charset=utf-8,${encodeURIComponent(
+      JSON.stringify(dataUrl, null, "\t")
+    )}`;
+    downloadFile(fileString, "json");
+  };
+
+  const loadJson = (json: string) => {
+    const data = JSON.parse(json);
+
+    canvas.loadFromJSON(data, () => {
+      autoZoom();
+    });
+  };
+
   // 设置中心圆点
   const center = (object: fabric.Object) => {
     const workspace = getWorkspace();
@@ -68,6 +146,13 @@ const buildEditor = ({
   };
 
   return {
+    savePng,
+    saveJpg,
+    saveSvg,
+    saveJson,
+    loadJson,
+    canRedo,
+    canUndo,
     getWorkspace,
     autoZoom,
     zoomIn: () => {
@@ -518,14 +603,16 @@ const buildEditor = ({
 
       workspace?.set(value);
       autoZoom();
-      // save();
+      save();
     },
     changeBackground: (value: string) => {
       const workspace = getWorkspace();
       workspace?.set({ fill: value });
       canvas.renderAll();
-      // save();
+      save();
     },
+    onUndo: () => undo(),
+    onRedo: () => redo(),
     selectedObjects,
   };
 };
@@ -550,19 +637,43 @@ export const useEditor = ({ clearSelectionCallback }: EditorHookProps) => {
   // 字体样式
   const [fontFamily, setFontFamily] = useState(FONT_FAMILY);
 
+  // 销毁重做
+  const { save, canRedo, canUndo, undo, redo, canvasHistory, setHistoryIndex } =
+    useHistory({
+      canvas,
+      saveCallback: () => {},
+    });
+
   // 处理画布位置偏移
   const { autoZoom } = useAutoResize({ canvas, container });
 
   // 处理画布事件
-  useCanvasEvents({ canvas, setSelectedObjects, clearSelectionCallback });
+  useCanvasEvents({ save, canvas, setSelectedObjects, clearSelectionCallback });
 
   // 粘贴板
   const { copy, paste } = useClipboard({ canvas });
+
+  // 快捷键
+  useHotkeys({
+    undo,
+    redo,
+    copy,
+    paste,
+    save,
+    canvas,
+  });
+
+  useWindowEvents();
 
   // 编辑器实例方法
   const editor = useMemo(() => {
     if (canvas) {
       return buildEditor({
+        canUndo,
+        canRedo,
+        undo,
+        redo,
+        save,
         autoZoom,
         copy,
         paste,
@@ -637,6 +748,10 @@ export const useEditor = ({ clearSelectionCallback }: EditorHookProps) => {
       // });
       // initialCanvas.add(test);
       // initialCanvas.centerObject(test);
+
+      const currentState = JSON.stringify(initialCanvas.toJSON(JSON_KEYS));
+      canvasHistory.current = [currentState];
+      setHistoryIndex(0);
     },
     []
   );

@@ -1,9 +1,9 @@
-import { Button } from "@/components/ui/button";
+import { auth } from "@/auth";
+import { protectServer } from "@/features/auth/utils";
 
-export default function Home() {
-  return (
-    <div>
-      <Button variant="outline">Button</Button>
-    </div>
-  );
+export default async function Home() {
+  await protectServer();
+  const session = await auth();
+
+  return <div>{JSON.stringify(session)}</div>;
 }

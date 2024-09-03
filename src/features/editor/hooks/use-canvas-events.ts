@@ -2,18 +2,24 @@ import { fabric } from "fabric";
 import { useEffect } from "react";
 
 interface UseCanvasEventsProps {
+  save: () => void;
   canvas: fabric.Canvas | null;
   setSelectedObjects: (objects: fabric.Object[]) => void;
   clearSelectionCallback?: () => void;
 }
 
 export const useCanvasEvents = ({
+  save,
   canvas,
   setSelectedObjects,
   clearSelectionCallback,
 }: UseCanvasEventsProps) => {
   useEffect(() => {
     if (canvas) {
+      canvas.on("object:added", () => save());
+      canvas.on("object:removed", () => save());
+      canvas.on("object:modified", () => save());
+
       // 画布事件监听
       canvas.on("selection:created", (e) => {
         console.log(e);
@@ -38,5 +44,5 @@ export const useCanvasEvents = ({
         canvas.off("selection:cleared");
       }
     };
-  }, [canvas, clearSelectionCallback, setSelectedObjects]);
+  }, [save, canvas, clearSelectionCallback, setSelectedObjects]);
 };

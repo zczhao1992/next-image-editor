@@ -3,6 +3,8 @@
 import { Logo } from "./logo";
 import { Button } from "@/components/ui/button";
 import { Hint } from "@/components/hint";
+import { useFilePicker } from "use-file-picker";
+import { useMutationState } from "@tanstack/react-query";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -17,19 +19,52 @@ import {
   Download,
   MousePointerClick,
   Redo2,
+  Loader,
   Undo2,
 } from "lucide-react";
 import { CiFileOn } from "react-icons/ci";
-import { BsCloudCheck } from "react-icons/bs";
-import { ActiveTool } from "../types";
+import { BsCloudCheck, BsCloudSlash } from "react-icons/bs";
+import { Editor, ActiveTool } from "../types";
 import { cn } from "@/lib/utils";
 
 interface NavbarProps {
+  editor: Editor | undefined;
   activeTool: ActiveTool;
   onChangeActiveTool: (tool: ActiveTool) => void;
 }
 
-export const Navbar = ({ activeTool, onChangeActiveTool }: NavbarProps) => {
+export const Navbar = ({
+  editor,
+  activeTool,
+  onChangeActiveTool,
+}: NavbarProps) => {
+  // const data = useMutationState({
+  //   filters: {
+  //     mutationKey: ["project", { id }],
+  //     exact: true,
+  //   },
+  //   select: (mutation) => mutation.state.status,
+  // });
+
+  // const currentStatus = data[data.length - 1];
+
+  // const isError = currentStatus === "error";
+  // const isPending = currentStatus === "pending";
+
+  const { openFilePicker } = useFilePicker({
+    accept: ".json",
+    onFilesSuccessfullySelected: ({ plainFiles }: any) => {
+      if (plainFiles && plainFiles.length > 0) {
+        const file = plainFiles[0];
+        const reader = new FileReader();
+        reader.readAsText(file, "UTF-8");
+        reader.onload = () => {
+          editor?.loadJson(reader.result as string);
+        };
+      }
+    },
+  });
+
   return (
     <nav className="w-full flex items-center p-4 h-[68px] gap-x-8 border-b lg:pl-[34px]">
       <Logo />
@@ -44,7 +79,7 @@ export const Navbar = ({ activeTool, onChangeActiveTool }: NavbarProps) => {
 
           <DropdownMenuContent align="start" className="min-w-60">
             <DropdownMenuItem
-              onClick={() => {}} // TODO:
+              onClick={() => openFilePicker()}
               className="flex items-center gap-x-2"
             >
               <CiFileOn className="size-8" />
@@ -71,10 +106,10 @@ export const Navbar = ({ activeTool, onChangeActiveTool }: NavbarProps) => {
         {/* 撤销 */}
         <Hint label="撤销" side="bottom" sideOffset={10}>
           <Button
+            disabled={!editor?.canUndo()}
             variant="ghost"
             size="icon"
-            onClick={() => {}} // TODO
-            className="" // TODO
+            onClick={() => editor?.onUndo()}
           >
             <Undo2 className="size-4" />
           </Button>
@@ -82,10 +117,10 @@ export const Navbar = ({ activeTool, onChangeActiveTool }: NavbarProps) => {
         {/* 重做 */}
         <Hint label="重做" side="bottom" sideOffset={10}>
           <Button
+            disabled={!editor?.canRedo()}
             variant="ghost"
             size="icon"
-            onClick={() => {}} // TODO
-            className="" // TODO
+            onClick={() => editor?.onRedo()}
           >
             <Redo2 className="size-4" />
           </Button>
@@ -93,10 +128,24 @@ export const Navbar = ({ activeTool, onChangeActiveTool }: NavbarProps) => {
 
         <Separator orientation="vertical" className="mx-2" />
 
-        <div className="flex items-center gap-x-2">
-          <BsCloudCheck className="size-[20px] text-muted-foreground" />
-          <div className="text-xs text-muted-foreground">保存</div>
-        </div>
+        {/* {isPending && (
+          <div className="flex items-center gap-x-2">
+            <Loader className="size-4 animate-spin text-muted-foreground" />
+            <div className="text-xs text-muted-foreground">保存中...</div>
+          </div>
+        )}
+        {!isPending && isError && (
+          <div className="flex items-center gap-x-2">
+            <BsCloudSlash className="size-[20px] text-muted-foreground" />
+            <div className="text-xs text-muted-foreground">保存失败</div>
+          </div>
+        )}
+        {!isPending && !isError && (
+          <div className="flex items-center gap-x-2">
+            <BsCloudCheck className="size-[20px] text-muted-foreground" />
+            <div className="text-xs text-muted-foreground">保存</div>
+          </div>
+        )} */}
 
         <div className="ml-auto flex items-center gap-x-4">
           <DropdownMenu modal={false}>
@@ -109,7 +158,7 @@ export const Navbar = ({ activeTool, onChangeActiveTool }: NavbarProps) => {
             <DropdownMenuContent align="end" className="min-w-60">
               <DropdownMenuItem
                 className="flex items-center gap-x-2"
-                onClick={() => {}} // TODO
+                onClick={() => editor?.saveJson()}
               >
                 <CiFileOn className="size-8" />
                 <div>
@@ -120,7 +169,7 @@ export const Navbar = ({ activeTool, onChangeActiveTool }: NavbarProps) => {
 
               <DropdownMenuItem
                 className="flex items-center gap-x-2"
-                onClick={() => {}} // TODO
+                onClick={() => editor?.savePng()}
               >
                 <CiFileOn className="size-8" />
                 <div>
@@ -131,7 +180,7 @@ export const Navbar = ({ activeTool, onChangeActiveTool }: NavbarProps) => {
 
               <DropdownMenuItem
                 className="flex items-center gap-x-2"
-                onClick={() => {}} // TODO
+                onClick={() => editor?.saveJpg()}
               >
                 <CiFileOn className="size-8" />
                 <div>
@@ -142,7 +191,7 @@ export const Navbar = ({ activeTool, onChangeActiveTool }: NavbarProps) => {
 
               <DropdownMenuItem
                 className="flex items-center gap-x-2"
-                onClick={() => {}} // TODO
+                onClick={() => editor?.saveSvg()}
               >
                 <CiFileOn className="size-8" />
                 <div>
