@@ -7,7 +7,7 @@
   resolved "https://registry.npmmirror.com/@alloc/quick-lru/-/quick-lru-5.2.0.tgz"
   integrity sha512-UrcABB+4bUrFABwbluTIBErXwvbsU/V7TZWfmbgJfbkwiBuziS9gxdODUyuiecfdGQ85jglMW6juS3+z5TsKLw==
 
-"@auth/core@0.34.2":
+"@auth/core@0.34.2", "@auth/core@^0.34.2":
   version "0.34.2"
   resolved "https://registry.npmmirror.com/@auth/core/-/core-0.34.2.tgz#645fd1f972842ca473d110a34a5a36838209bf10"
   integrity sha512-KywHKRgLiF3l7PLyL73fjLSIBe1YNcA6sMeew4yMP6cfCWGXZrkkXd32AjRi1hlJ9nvovUBGZHvbn+LijO6ZeQ==
@@ -345,6 +345,11 @@
   version "0.2.7"
   resolved "https://registry.npmmirror.com/@floating-ui/utils/-/utils-0.2.7.tgz#d0ece53ce99ab5a8e37ebdfe5e32452a2bfc073e"
   integrity sha512-X8R8Oj771YRl/w+c1HqAC1szL8zWQRwFvgDwT129k9ACdBoud/+/rX9V0qiMl6LWUdP9voC2nDVZYPMQQsb6eA==
+
+"@hono/auth-js@^1.0.10":
+  version "1.0.10"
+  resolved "https://registry.npmmirror.com/@hono/auth-js/-/auth-js-1.0.10.tgz#cb9b8b07e80856ea781903aa9aff6cc45608904b"
+  integrity sha512-hnkZzPMHveX2GzX/zS53uP6OqzB6SCtJCaimXdjewCWWiNi4FFtv1jcsca3PV7haiaLKict5JPZWzfMq+t3Bzw==
 
 "@hono/zod-validator@^0.2.2":
   version "0.2.2"
