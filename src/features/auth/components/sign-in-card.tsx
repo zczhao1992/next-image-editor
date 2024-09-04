@@ -20,8 +20,8 @@ import {
 } from "@/components/ui/card";
 
 export const SignInCard = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("admin");
+  const [password, setPassword] = useState("123456");
 
   const params = useSearchParams();
   const error = params.get("error");

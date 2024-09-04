@@ -39,7 +39,7 @@ export const TemplatesSection = () => {
   if (isLoading) {
     return (
       <div className="space-y-4">
-        <h3 className="font-semibold text-lg">从模版开始</h3>
+        <h3 className="font-semibold text-lg">加载模版</h3>
         <div className="flex items-center justify-center h-32">
           <Loader className="size-6 text-muted-foreground animate-spin" />
         </div>
@@ -50,7 +50,7 @@ export const TemplatesSection = () => {
   if (isError) {
     return (
       <div className="space-y-4">
-        <h3 className="font-semibold text-lg">从模版开始</h3>
+        <h3 className="font-semibold text-lg">加载模版</h3>
         <div className="flex flex-col gap-y-4 items-center justify-center h-32">
           <TriangleAlert className="size-6 text-muted-foreground" />
           <p>模版加载失败</p>
@@ -65,7 +65,7 @@ export const TemplatesSection = () => {
 
   return (
     <div>
-      <h3 className="font-semibold text-lg">从模版开始</h3>
+      <h3 className="font-semibold text-lg">加载模版</h3>
       <div className="grid grid-cols-2 md:grid-cols-4 mt-4 gap-4">
         {data?.map((template) => (
           <TemplateCard

@@ -24,7 +24,7 @@ export const Sidebar = ({ activeTool, onChangeActiveTool }: SidebarProps) => {
       <ul className="flex flex-col">
         <SidebarItem
           icon={LayoutTemplate}
-          label="设计"
+          label="模版"
           isActive={activeTool === "templates"}
           onClick={() => onChangeActiveTool("templates")}
         />

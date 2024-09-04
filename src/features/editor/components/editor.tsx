@@ -26,6 +26,7 @@ import { AiSidebar } from "./ai-sidebar";
 import { RemoveBgSidebar } from "./remove-bg-sidebar";
 import { DrawSidebar } from "./draw-sidebar";
 import { SettingsSidebar } from "./settings-sidebar";
+import { TemplateSidebar } from "./template-sidebar";
 
 interface EditorProps {
   initialData: ResponseType["data"];
@@ -182,6 +183,12 @@ export const Editor = ({ initialData }: EditorProps) => {
         />
 
         <SettingsSidebar
+          editor={editor}
+          activeTool={activeTool}
+          onChangeActiveTool={onChangeActiveTool}
+        />
+
+        <TemplateSidebar
           editor={editor}
           activeTool={activeTool}
           onChangeActiveTool={onChangeActiveTool}
