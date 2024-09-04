@@ -71,11 +71,7 @@ export const AiSidebar = ({
             value={value}
             onChange={(e) => setValue(e.target.value)}
           />
-          <Button
-            disabled={mutation.isPending}
-            type="submit"
-            className="w-full"
-          >
+          <Button disabled={true} type="submit" className="w-full">
             生成
           </Button>
         </form>
