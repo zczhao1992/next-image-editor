@@ -1,7 +1,12 @@
 "use client";
 
 import { fabric } from "fabric";
+import debounce from "lodash.debounce";
 import { useCallback, useEffect, useRef, useState } from "react";
+
+import { ResponseType } from "@/features/projects/api/use-get-project";
+import { useUpdateProject } from "@/features/projects/api/use-update-project";
+
 import { useEditor } from "@/features/editor/hooks/use-editor";
 import { Navbar } from "./navbar";
 import { Sidebar } from "./sidebar";
@@ -22,7 +27,22 @@ import { RemoveBgSidebar } from "./remove-bg-sidebar";
 import { DrawSidebar } from "./draw-sidebar";
 import { SettingsSidebar } from "./settings-sidebar";
 
-export const Editor = () => {
+interface EditorProps {
+  initialData: ResponseType["data"];
+}
+
+export const Editor = ({ initialData }: EditorProps) => {
+  // 更新
+  const { mutate } = useUpdateProject(initialData.id);
+
+  // 自动保存
+  const debouncedSave = useCallback(
+    debounce((values: { json: string; height: number; width: number }) => {
+      mutate(values);
+    }, 500),
+    [mutate]
+  );
+
   // 侧边栏选择工具
   const [activeTool, setActiveTool] = useState<ActiveTool>("select");
 
@@ -33,7 +53,11 @@ export const Editor = () => {
   }, [activeTool]);
 
   const { init, editor } = useEditor({
+    defaultState: initialData.json,
+    defaultWidth: initialData.width,
+    defaultHeight: initialData.height,
     clearSelectionCallback: onClearSelection,
+    saveCallback: debouncedSave,
   });
 
   // 切换工具

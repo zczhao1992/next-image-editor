@@ -6,6 +6,7 @@ import authConfig from "@/auth.config";
 import images from "./images";
 import ai from "./ai";
 import users from "./users";
+import projects from "./projects";
 
 export const runtime = "nodejs";
 
@@ -23,7 +24,8 @@ app.use("*", initAuthConfig(getAuthConfig));
 const routes = app
   .route("/ai", ai)
   .route("/images", images)
-  .route("/users", users);
+  .route("/users", users)
+  .route("/projects", projects);
 
 app.get("/test", (c) => {
   return c.json({ name: "Hello Hono!" });
