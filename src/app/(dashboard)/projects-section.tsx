@@ -29,8 +29,8 @@ import { useConfirm } from "@/hooks/use-confirm";
 
 export const ProjectsSection = () => {
   const [ConfirmDialog, confirm] = useConfirm(
-    "Are you sure?",
-    "You are about to delete this project."
+    "您确定吗？",
+    "您确定删除这个项目吗？"
   );
   const duplicateMutation = useDuplicateProject();
   const removeMutation = useDeleteProject();
@@ -54,7 +54,7 @@ export const ProjectsSection = () => {
   if (status === "pending") {
     return (
       <div className="space-y-4">
-        <h3 className="font-semibold text-lg">Recent projects</h3>
+        <h3 className="font-semibold text-lg">最近项目</h3>
         <div className="flex flex-col gap-y-4 items-center justify-center h-32">
           <Loader className="size-6 animate-spin text-muted-foreground" />
         </div>
@@ -65,12 +65,10 @@ export const ProjectsSection = () => {
   if (status === "error") {
     return (
       <div className="space-y-4">
-        <h3 className="font-semibold text-lg">Recent projects</h3>
+        <h3 className="font-semibold text-lg">最近项目</h3>
         <div className="flex flex-col gap-y-4 items-center justify-center h-32">
           <AlertTriangle className="size-6 text-muted-foreground" />
-          <p className="text-muted-foreground text-sm">
-            Failed to load projects
-          </p>
+          <p className="text-muted-foreground text-sm">项目出错</p>
         </div>
       </div>
     );
@@ -79,10 +77,10 @@ export const ProjectsSection = () => {
   if (!data.pages.length || !data.pages[0].data.length) {
     return (
       <div className="space-y-4">
-        <h3 className="font-semibold text-lg">Recent projects</h3>
+        <h3 className="font-semibold text-lg">最近项目</h3>
         <div className="flex flex-col gap-y-4 items-center justify-center h-32">
           <Search className="size-6 text-muted-foreground" />
-          <p className="text-muted-foreground text-sm">No projects found</p>
+          <p className="text-muted-foreground text-sm">无项目</p>
         </div>
       </div>
     );
@@ -91,7 +89,7 @@ export const ProjectsSection = () => {
   return (
     <div className="space-y-4">
       <ConfirmDialog />
-      <h3 className="font-semibold text-lg">Recent projects</h3>
+      <h3 className="font-semibold text-lg">最近项目</h3>
       <Table>
         <TableBody>
           {data.pages.map((group, i) => (
@@ -133,7 +131,7 @@ export const ProjectsSection = () => {
                           onClick={() => onCopy(project.id)}
                         >
                           <CopyIcon className="size-4 mr-2" />
-                          Make a copy
+                          复制
                         </DropdownMenuItem>
                         <DropdownMenuItem
                           className="h-10 cursor-pointer"
@@ -141,7 +139,7 @@ export const ProjectsSection = () => {
                           onClick={() => onDelete(project.id)}
                         >
                           <Trash className="size-4 mr-2" />
-                          Delete
+                          删除
                         </DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>
@@ -159,7 +157,7 @@ export const ProjectsSection = () => {
             onClick={() => fetchNextPage()}
             disabled={isFetchingNextPage}
           >
-            Load more
+            加载更多
           </Button>
         </div>
       )}
