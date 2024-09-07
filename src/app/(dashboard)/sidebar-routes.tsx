@@ -1,6 +1,6 @@
 "use client";
 
-import { Home, MessageCircleQuestion } from "lucide-react";
+import { Home, Github } from "lucide-react";
 import { usePathname } from "next/navigation";
 
 import { Separator } from "@/components/ui/separator";
@@ -26,7 +26,7 @@ export const SidebarRoutes = () => {
       <ul className="flex flex-col gap-y-1 px-3">
         <SidebarItem
           href="https://github.com/zczhao1992/next-image-editor"
-          icon={MessageCircleQuestion}
+          icon={Github}
           label="Github"
         />
       </ul>
