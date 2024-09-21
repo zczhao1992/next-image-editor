@@ -3,6 +3,7 @@
 import React from "react";
 import { useRouter } from "next/navigation";
 import { formatDistanceToNow } from "date-fns";
+import { zhCN } from "date-fns/locale";
 import {
   AlertTriangle,
   CopyIcon,
@@ -115,6 +116,7 @@ export const ProjectsSection = () => {
                   >
                     {formatDistanceToNow(project.updatedAt, {
                       addSuffix: true,
+                      locale: zhCN,
                     })}
                   </TableCell>
                   <TableCell className="flex items-center justify-end">
