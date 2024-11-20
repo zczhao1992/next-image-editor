@@ -7,7 +7,6 @@ Next-Image-Editor，基于 Next.js、fabric.js、shadcn/ui、TailWind css、Driz
 ### 一、在线预览地址
 
 - vercel(需要翻墙)：https://next-image-editor-zc.vercel.app/
-- netlify(无需翻墙)：https://next-image-editor-zc.netlify.app/
 
 ### 二、Git 仓库地址 (欢迎 Star⭐)
 
